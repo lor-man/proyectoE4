@@ -19,11 +19,13 @@ uint8_t cO[4]  = { 0x1E  , 0x21 , 0x21 , 0x1E } ;
 uint8_t cP[4]  = { 0x3E  , 0x09 , 0x09 , 0x0E } ;
 uint8_t cQ[4]  = { 0x0F  , 0x11 , 0x13 , 0x20 } ;
 uint8_t cR[4]  = { 0x3E  , 0x09 , 0x09 , 0x36 } ;
+uint8_t cS[4]  = { 0x24  , 0x2A , 0x29 , 0x11 } ;
 uint8_t cT[4]  = { 0x01  , 0x3F , 0x3F , 0x01 } ;
 uint8_t cU[4]  = { 0x1F  , 0x20 , 0x20 , 0x1F } ;
 uint8_t cV[4]  = { 0x0F  , 0x30 , 0x30 , 0x0F } ;
+uint8_t cW[4]  = { 0x3F  , 0xC , 0xC , 0x2F  } ;
 uint8_t cX[4]  = { 0x33  , 0x0C , 0x0C , 0x33 } ;
-uint8_t cy[4]  = { 0x07  , 0x38 , 0x38 , 0x07 } ;
+uint8_t cY[4]  = { 0x07  , 0x38 , 0x38 , 0x07 } ;
 uint8_t cZ[4]  = { 0x31  , 0x29 , 0x25 , 0x23 } ;
 //digitos
 uint8_t c0[4]  = { 0x3F , 0x21 , 0x21 , 0x3F  } ;
@@ -94,129 +96,130 @@ void loop() {
   cadEnv="";// Se limpia la variable tipo string donde se guarda la copia de la cadena recibido  
 }
 //------------------------------------------------------------------------------------------------------------
-uint8_t matrizCaracter(String letra){
+uint8_t * matrizCaracter(char letra){
   switch(letra){
-      case "A":
+      case 'A':
         return(cA);
         break;
-      case "B":
+      case 'B':
         return(cB);
         break;
-      case "C":
-        return(cC};
+      case 'C':
+        return(cC);
         break;
-      case "D":
+      case 'D':
         return(cD);
         break;
-      case "E":
+      case 'E':
         return(cE);
         break;
-      case "F":
+      case 'F':
         return(cF);
         break;  
-      case "G":
+      case 'G':
         return(cG);
         break; 
-      case "H":
+      case 'H':
         return(cH);
         break;
-      case "I":
+      case 'I':
         return(cI);
         break;
-      case "J":
+      case 'J':
         return(cJ);
         break;
-      case "K":
+      case 'K':
         return(cK);
         break;
-      case "L":
+      case 'L':
         return(cL);
         break;
-      case "M":
+      case 'M':
         return(cM);
         break;
-      case "N":
+      case 'N':
         return(cE);
         break;
-      case "O":
+      case 'O':
         return(cO);
         break;
-      case "P":
+      case 'P':
         return(cP);
         break;
-      case "Q":
+      case 'Q':
         return(cQ);
         break;
-      case "R":
+      case 'R':
         return(cR);
         break;
-      case "S":
+      case 'S':
         return(cS);
         break;
-      case "T":
+      case 'T':
         return(cT);
         break;
-      case "U":
+      case 'U':
         return(cU);
         break;
-      case "V":
+      case 'V':
         return(cV);
         break;
-      case "W":
+      case 'W':
         return(cW);
         break;
-      case "X":
+      case 'X':
         return(cX);
         break;
-      case "Y":
+      case 'Y':
         return(cY);
         break;
-      case "Z":
+      case 'Z':
         return(cZ);
         break;
       //Numeros
-      case "0":
+      case '0':
         return(c0);
         break;
-      case "1":
+      case '1':
         return(c1);
         break;
-      case "2":
+      case '2':
         return(c2);
         break;
-      case "3":
+      case '3':
         return(c3);
         break;
-      case "4":
+      case '4':
         return(c4);
         break;
-      case "5":
+      case '5':
         return(c5);
         break;
-      case "6":
+      case '6':
         return(c6);
         break;
-      case "7":
+      case '7':
         return(c7);
         break;
-      case "8":
+      case '8':
         return(c8);
         break;
-      case "9":
+      case '9':
         return(c9);
         break;
       //Tres signos
-      case "?":
+      case '?':
         return(cInterrogacion);
         break;
-      case "!":
+      case '!':
         return(cAdmiracion);
         break;
-      case " ":
+      case ' ':
         return(cEspacio);
         break;
       default:
         return(cEspacio);
         break;
+  }
 }
 //------------------------------------------------------------------------------------------------------------
