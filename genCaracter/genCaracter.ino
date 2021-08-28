@@ -43,7 +43,8 @@ uint8_t cInterrogacion[4]  = { 0x02 , 0x01 , 0x2D  , 0x2 } ;//Signo de interroga
 uint8_t cAdmiracion[4] = { 0x00 , 0x00 , 0x2F  , 0x00 } ;//signo de !
 uint8_t cEspacio[4]  = { 0x20  , 0x20  , 0x20  , 0x20  } ;// El espacio sera un guion bajo _, se utilizara tambien cuando no se encuentre el caracter enviado.
 //------------------------------------------------------------------------------------------------------------
-
+unsigned long tiempo1=0,tiempo2=0;
+//------------------------------------------------------------------------------------------------------------
 int outRow[]={PD_0,PD_1,PD_2,PD_3,PE_0,PE_1};// PD_0,PD_1,PD_2,PD_3,PE_0,PE_1 Filas
 int outCol[]={PE_2,PE_3,PE_4,PE_5};//PE_2,PE_3,PE_4,PE_5  Columnas
 //------------------------------------------------------------------------------------------------------------
@@ -61,164 +62,203 @@ void setup() {
   }
 //---------------------------------------------------
 //Inicializacion de pines en estado bajo-------------
-    for(int cnt=0;cnt<6;cnt++){ //Salidas de filas
+  for(int cnt=0;cnt<6;cnt++){ //Salidas de filas
     digitalWrite(outRow[cnt],LOW);
   }
   for(int cnt=0;cnt<4;cnt++){ //Salidas de columnas
-    digitalWrite(outCol[cnt],LOW);
+    digitalWrite(outCol[cnt],HIGH);
   }  
+  tiempo1=millis();
 }
 //------------------------------------------------------------------------------------------------------------
+char caracterX='0';
+short unsigned int posCaracter=0;
+
+uint8_t * dispCaracter;
+uint8_t carX[4];
+int pinVal=0;
 
 void loop() {
   String cadenaSer="";//String de concatenacion de datos recibidos
-  String cadEnv="";//String con el que se trabaja la matriz copia de cadenaSer
+  String cadEnv="";//String con el que se trabaja la matriz copia de cadenaSer  
   while (Serial.available()) {  // While de recepcion de cadena de caracteres enviados desde la computadora
-    cadenaSer = Serial.readString();       
-    }
-  if(cadenaSer.length()!=0){ //si lo que se envia no es una cadena vacia entonces se extrae dato pordatopara eliminar los ultimos dos caracteres que se envia desde la PC
-    for( uint8_t cnt_len=0; cnt_len<=cadenaSer.length()-1;cnt_len++){
-      cadEnv=cadEnv+cadenaSer[cnt_len];
-    }
-    Serial.print(cadEnv);//Se envia de vuelta la cadena para corroborar la recepcion
+    //Serial.println(cadEnv.length());
+    cadenaSer = Serial.readString();      
+      if(cadenaSer.length()!=0){ //si lo que se envia no es una cadena vacia entonces se extrae dato pordatopara eliminar los ultimos dos caracteres que se envia desde la PC
+        for( uint8_t cnt_len=0; cnt_len<=cadenaSer.length()-1;cnt_len++){
+          cadEnv=cadEnv+cadenaSer[cnt_len];
+        }
+      }
+    Serial.flush();//Se limpia el buffer de recepcion del modulo uart
+    cadenaSer="";  //Se limpia la variable tipo string de recepcion
+    cadEnv.toUpperCase();// Se convierte a mayusculas el texto recibido
+    Serial.print(cadEnv);// Se manda al puerto serial el texto en mayusculas
   }
-  Serial.flush();//Se limpia el buffer de recepcion del modulo uart
-  cadenaSer="";  //Se limpia la variable tipo string de recepcion
-  cadEnv.toUpperCase();// Se convierte a mayusculas el texto recibido
+
+ 
  //---------Logica de multiplexacion de caracteres y control de tiempo de visibilidad------------------------
+ //Seleccion de caracter y asignacion al carX donde se guarda el caracter con un intervalo de 1 segundo
+while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
+tiempo2=millis(); 
+ if(tiempo2>(tiempo1+1000)){
+   tiempo1=millis();
+   posCaracter++;
+   if(posCaracter-1<cadEnv.length()){
+    //Serial.println(cadEnv);
+     caracterX=cadEnv.charAt(posCaracter-1);    
+     //Serial.println(caracterX); 
+     matrizCaracter(caracterX); 
+     for(int cont=0; cont<4;cont++){
+       carX[cont]=*(dispCaracter+cont);
+       //Serial.println(carX[cont]);
+      }      
+   }  
+ }
 
-//--------Aca falta esta parte-------------------------------------------------------------------------------
+ //-------------Multiplexado---------------------------------------------------------------------------------
+for(int col=0; col<4; col++){
+  //Serial.println(col);
+  digitalWrite(outCol[col],LOW);
+    for(int row=0;row<6;row++){
+        pinVal=bitRead(carX[col],row);
+        digitalWrite(outRow[row],pinVal);
+        delay(1);
+        digitalWrite(outRow[row],LOW);
+    } 
+   
+   digitalWrite(outCol[col],HIGH);
+ } 
+}
  //---------Fin de bloque de logica--------------------------------------------------------------------------
-
-
-
-  
+  posCaracter=0;//reinicio de la variable de posicion del caracter
   cadEnv="";// Se limpia la variable tipo string donde se guarda la copia de la cadena recibido  
+  caracterX=' ';
 }
 //------------------------------------------------------------------------------------------------------------
-uint8_t * matrizCaracter(char letra){
+void matrizCaracter(char letra){
   switch(letra){
       case 'A':
-        return(cA);
+        dispCaracter=cA;
+        
         break;
       case 'B':
-        return(cB);
+        dispCaracter=cB;
         break;
       case 'C':
-        return(cC);
+        dispCaracter=cC;
         break;
       case 'D':
-        return(cD);
+        dispCaracter=cD;
         break;
       case 'E':
-        return(cE);
+        dispCaracter=cE;
         break;
       case 'F':
-        return(cF);
+        dispCaracter=cF;
         break;  
       case 'G':
-        return(cG);
+       dispCaracter=cG;
         break; 
       case 'H':
-        return(cH);
+        dispCaracter=cH;
         break;
       case 'I':
-        return(cI);
+        dispCaracter=cI;
         break;
       case 'J':
-        return(cJ);
+        dispCaracter=cJ;
         break;
       case 'K':
-        return(cK);
+        dispCaracter=cK;
         break;
       case 'L':
-        return(cL);
+        dispCaracter=cL;
         break;
       case 'M':
-        return(cM);
+        dispCaracter=cM;
         break;
       case 'N':
-        return(cE);
+        dispCaracter=cN;
         break;
       case 'O':
-        return(cO);
+       dispCaracter=cO;
         break;
       case 'P':
-        return(cP);
+        dispCaracter=cP;
         break;
       case 'Q':
-        return(cQ);
+        dispCaracter=cQ;
         break;
       case 'R':
-        return(cR);
+       dispCaracter=cR;
         break;
       case 'S':
-        return(cS);
+        dispCaracter=cS;
         break;
       case 'T':
-        return(cT);
+        dispCaracter=cT;
         break;
       case 'U':
-        return(cU);
+        dispCaracter=cU;
         break;
       case 'V':
-        return(cV);
+       dispCaracter=cV;
         break;
       case 'W':
-        return(cW);
+        dispCaracter=cW;
         break;
       case 'X':
-        return(cX);
+        dispCaracter=cX;
         break;
       case 'Y':
-        return(cY);
+        dispCaracter=cY;
         break;
       case 'Z':
-        return(cZ);
+        dispCaracter=cZ;
         break;
       //Numeros
       case '0':
-        return(c0);
+        dispCaracter=c0;
         break;
       case '1':
-        return(c1);
+        dispCaracter=c1;
         break;
       case '2':
-        return(c2);
+        dispCaracter=c2;
         break;
       case '3':
-        return(c3);
+        dispCaracter=c3;
         break;
       case '4':
-        return(c4);
+        dispCaracter=c4;
         break;
       case '5':
-        return(c5);
+        dispCaracter=c5;
         break;
       case '6':
-        return(c6);
+        dispCaracter=c6;
         break;
       case '7':
-        return(c7);
+        dispCaracter=c7;
         break;
       case '8':
-        return(c8);
+        dispCaracter=c8;
         break;
       case '9':
-        return(c9);
+        dispCaracter=c9;
         break;
       //Tres signos
       case '?':
-        return(cInterrogacion);
+        dispCaracter=cInterrogacion;
         break;
       case '!':
-        return(cAdmiracion);
+       dispCaracter=cAdmiracion;
         break;
       case ' ':
-        return(cEspacio);
+        dispCaracter=cEspacio;
         break;
       default:
-        return(cEspacio);
+        dispCaracter=cEspacio;
         break;
   }
 }
