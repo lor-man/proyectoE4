@@ -1,4 +1,13 @@
 //Definicion de las letras en formato de matriz de 6x4
+/*   C0 C1 C2 C3
+     |  |  |  |
+F0-- X  X  X  X
+F1-- X  X  X  X
+F2-- X  X  X  X
+F3-- X  X  X  X
+F4-- X  X  X  X
+F5-- X  X  X  X
+*/
 //------------------------------------------------------------------------------------------------------------
 //Caracteres
 uint8_t cA[4]  = { 0x3F  , 0x09 , 0x09 , 0x3F } ;
@@ -45,8 +54,8 @@ uint8_t cEspacio[4]  = { 0x20  , 0x20  , 0x20  , 0x20  } ;// El espacio sera un 
 //------------------------------------------------------------------------------------------------------------
 unsigned long tiempo1=0,tiempo2=0;
 //------------------------------------------------------------------------------------------------------------
-int outRow[]={PD_0,PD_1,PD_2,PD_3,PE_0,PE_1};// PD_0,PD_1,PD_2,PD_3,PE_0,PE_1 Filas
-int outCol[]={PE_2,PE_3,PE_4,PE_5};//PE_2,PE_3,PE_4,PE_5  Columnas
+int outRow[]={PD_0,PD_1,PD_2,PD_3,PE_0,PE_1};// PD_0=F0,PD_1=F1,PD_2=F2,PD_3=F3,PE_0=F4,PE_1=F5 Filas
+int outCol[]={PE_2,PE_3,PE_4,PE_5};//PE_2=C0,PE_3=C1,PE_4=C2,PE_5=C3  Columnas
 //------------------------------------------------------------------------------------------------------------
 uint8_t matrizCaracter(String letra); //Obtencion de la letra en formato de matriz
 //------------------------------------------------------------------------------------------------------------
