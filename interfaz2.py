@@ -72,18 +72,18 @@ class SerialMonitor(Frame):
         self.sendSerial("Sekiro")
 
     def sendSerial(self,texto):
-        recibido=None
-        print(texto+" GUI")
+        #recibido=None
+        #print(texto+" GUI")
         try:
             with serial.Serial(self.comport.get(),9600,timeout=1)as port:
                 #time.sleep(0.01)
                 port.write(bytes(texto,'utf-8'))
-            with serial.Serial(self.comport.get(),9600,timeout=1)as port:
+            """with serial.Serial(self.comport.get(),9600,timeout=1)as port:
                 #time.sleep(0.01)
                 recibido=port.readline()
                 print(len(str(recibido,'utf-8')))
             print(str(recibido,'utf-8')+" Tivac") 
-           
+           """
         except Exception as exc:
             print(exc) 
   
