@@ -129,9 +129,11 @@ void loop() {
  //Seleccion de caracter y asignacion al carX donde se guarda el caracter con un intervalo de 1 segundo
 while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
   
-  tiempo2=millis(); 
-   if(tiempo2>(tiempo1+1000)){
-     tiempo1=millis();
+  //tiempo2=millis(); 
+   //if(tiempo2>(tiempo1+5000)){
+     //tiempo1=millis();
+
+     //Cambia el caracter cada 2 segundos
      posCaracter++;
      if(posCaracter-1<cadEnv.length()){
       
@@ -139,14 +141,18 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
        matrizCaracter(caracterX); 
        
        for(int cont=0; cont<4;cont++){
-         carX[cont]=*(dispCaracter+cont);
-        
+         carX[cont]=*(dispCaracter+cont);        
         }      
-     }  
-   }
+      }  
+   //}
+
    
+ tiempo2=millis();
+ 
+ while(tiempo1<(tiempo2+1000)){
   //=========================================Multiplexacion de matriz led=============================================================================
  //-------------Multiplexado   por filas ---------------------------------------------------------------------------------
+ tiempo1=millis();
  /* 
   
   for(int col=0; col<4; col++){
@@ -222,7 +228,7 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
 //####################################################################################################################
 
 
-   
+ }  
 }
  //---------Fin de bloque de logica--------------------------------------------------------------------------
   posCaracter=0;//reinicio de la variable de posicion del caracter
