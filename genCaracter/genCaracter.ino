@@ -10,6 +10,7 @@ F5-- X  X  X  X
 */
 //------------------------------------------------------------------------------------------------------------
 //Caracteres
+
 uint8_t cA[4]  = { 0x3F  , 0x09 , 0x09 , 0x3F } ;
 uint8_t cB[4]  = { 0x3F  , 0x3F , 0x25 , 0x3F } ;
 uint8_t cC[4]  = { 0x3F  , 0x21 , 0x21 , 0x21 } ;
@@ -51,21 +52,34 @@ uint8_t c9[4]  = { 0x00 , 0x07 , 0x05 , 0x3F  } ;
 uint8_t cInterrogacion[4]  = { 0x02 , 0x01 , 0x2D  , 0x2 } ;//Signo de interrogacion ?
 uint8_t cAdmiracion[4] = { 0x00 , 0x00 , 0x2F  , 0x00 } ;//signo de !
 uint8_t cEspacio[4]  = { 0x20  , 0x20  , 0x20  , 0x20  } ;// El espacio sera un guion bajo _, se utilizara tambien cuando no se encuentre el caracter enviado.
+
+
+
+
 //------------------------------------------------------------------------------------------------------------
 unsigned long tiempo1=0,tiempo2=0;
 //------------------------------------------------------------------------------------------------------------
+
 int outRow[]={PD_0,PD_1,PD_2,PD_3,PE_0,PE_1};// PD_0=F0,PD_1=F1,PD_2=F2,PD_3=F3,PE_0=F4,PE_1=F5 Filas
 int outCol[]={PE_2,PE_3,PE_4,PE_5};//PE_2=C0,PE_3=C1,PE_4=C2,PE_5=C3  Columnas
+
 //------------------------------------------------------------------------------------------------------------
+
 uint8_t matrizCaracter(String letra); //Obtencion de la letra en formato de matriz
 //------------------------------------------------------------------------------------------------------------
+
+
 void setup() {
+  
   Serial.begin(9600);
   while (!Serial) {}
+  
 //Inicializacion de pines en modo de salida---------
+
   for(int cnt=0;cnt<6;cnt++){ //Salidas de filas
     pinMode(outRow[cnt],OUTPUT);
   }
+  
   for(int cnt=0;cnt<4;cnt++){//Salidas de columnas
     pinMode(outCol[cnt],OUTPUT);
   }
@@ -75,68 +89,140 @@ void setup() {
     digitalWrite(outRow[cnt],LOW);
   }
   for(int cnt=0;cnt<4;cnt++){ //Salidas de columnas
-    digitalWrite(outCol[cnt],HIGH);
+    digitalWrite(outCol[cnt],LOW);
   }  
   tiempo1=millis();
 }
+
 //------------------------------------------------------------------------------------------------------------
+
 char caracterX='0';
 short unsigned int posCaracter=0;
 
 uint8_t * dispCaracter;
-uint8_t carX[4];
+volatile uint8_t carX[4];
 int pinVal=0;
 
 void loop() {
+  
   String cadenaSer="";//String de concatenacion de datos recibidos
-  String cadEnv="";//String con el que se trabaja la matriz copia de cadenaSer  
+  String cadEnv="";//String con el que se trabaja la matriz copia de cadenaSer 
+   
   while (Serial.available()) {  // While de recepcion de cadena de caracteres enviados desde la computadora
-    //Serial.println(cadEnv.length());
-    cadenaSer = Serial.readString();      
+    
+    cadenaSer = Serial.readString(); 
+         
       if(cadenaSer.length()!=0){ //si lo que se envia no es una cadena vacia entonces se extrae dato pordatopara eliminar los ultimos dos caracteres que se envia desde la PC
+       
         for( uint8_t cnt_len=0; cnt_len<=cadenaSer.length();cnt_len++){
           cadEnv=cadEnv+cadenaSer[cnt_len];
         }
       }
+      
     Serial.flush();//Se limpia el buffer de recepcion del modulo uart
     cadenaSer="";  //Se limpia la variable tipo string de recepcion
     cadEnv.toUpperCase();// Se convierte a mayusculas el texto recibido
-    //Serial.print(cadEnv);// Se manda al puerto serial el texto en mayusculas
   }
 
  
  //---------Logica de multiplexacion de caracteres y control de tiempo de visibilidad------------------------
  //Seleccion de caracter y asignacion al carX donde se guarda el caracter con un intervalo de 1 segundo
 while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
-tiempo2=millis(); 
- if(tiempo2>(tiempo1+1000)){
-   tiempo1=millis();
-   posCaracter++;
-   if(posCaracter-1<cadEnv.length()){
-    //Serial.println(cadEnv);
-     caracterX=cadEnv.charAt(posCaracter-1);    
-     //Serial.println(caracterX); 
-     matrizCaracter(caracterX); 
-     for(int cont=0; cont<4;cont++){
-       carX[cont]=*(dispCaracter+cont);
-       //Serial.println(carX[cont]);
-      }      
-   }  
- }
-
- //-------------Multiplexado---------------------------------------------------------------------------------
-for(int col=0; col<4; col++){
-  //Serial.println(col);
-  digitalWrite(outCol[col],LOW);
-    for(int row=0;row<6;row++){
-        pinVal=bitRead(carX[col],row);
-        digitalWrite(outRow[row],pinVal);
-        delay(1);
-        digitalWrite(outRow[row],LOW);
-    } 
+  
+  tiempo2=millis(); 
+   if(tiempo2>(tiempo1+1000)){
+     tiempo1=millis();
+     posCaracter++;
+     if(posCaracter-1<cadEnv.length()){
+      
+       caracterX=cadEnv.charAt(posCaracter-1);           
+       matrizCaracter(caracterX); 
+       
+       for(int cont=0; cont<4;cont++){
+         carX[cont]=*(dispCaracter+cont);
+        
+        }      
+     }  
+   }
    
-   digitalWrite(outCol[col],HIGH);
- } 
+  //=========================================Multiplexacion de matriz led=============================================================================
+ //-------------Multiplexado   por filas ---------------------------------------------------------------------------------
+ /* 
+  
+  for(int col=0; col<4; col++){
+  
+    digitalWrite(outCol[col],LOW);
+    
+      for(int row=0;row<6;row++){
+          pinVal=bitRead(carX[col],row);
+          digitalWrite(outRow[row],pinVal);
+          
+          //delay(1);
+          
+          //digitalWrite(outRow[row],LOW);
+      }
+      delay(1);
+      digitalWrite(outCol[col],HIGH);
+  }
+//----------------------------------------------------------------------------------------------------------------
+*/
+  
+//----------Multiplexacion  por columnas-------------------------------------------------------------------------------------
+/*
+  for(int fila=0; fila<6;fila++){
+    digitalWrite(outRow[fila],HIGH);
+    for (int col=0; col<4;col++){
+        pinVal=bitRead(carX[col],fila);
+        digitalWrite(outCol[col],!pinVal);
+      }
+      delay(1);
+      digitalWrite(outRow[fila],LOW);
+      delay(1);
+      }
+
+*/
+  //==========================================================================================================================
+//#############################Multiplexacion de focos###############################################################
+
+
+ //-------------Multiplexado   por filas METODO 1---------------------------------------------------------------------------------
+ /* 
+  
+  for(int col=0; col<4; col++){
+  
+    digitalWrite(outCol[col],HIGH);
+    
+      for(int row=0;row<6;row++){
+          pinVal=bitRead(carX[col],row);
+          digitalWrite(outRow[row],pinVal);
+          
+          //delay(1);
+          
+          //digitalWrite(outRow[row],LOW);
+      }
+      delay(1);
+      digitalWrite(outCol[col],LOW);
+  }
+//----------------------------------------------------------------------------------------------------------------
+*/
+  
+//----------Multiplexacion  por columnas  METODO 2-------------------------------------------------------------------------------------
+
+  for(int fila=0; fila<6;fila++){
+    digitalWrite(outRow[fila],HIGH);
+    for (int col=0; col<4;col++){
+        pinVal=bitRead(carX[col],fila);
+        digitalWrite(outCol[col],pinVal);
+      }
+      delay(1);
+      digitalWrite(outRow[fila],LOW);
+      delay(1);
+      }
+
+//####################################################################################################################
+
+
+   
 }
  //---------Fin de bloque de logica--------------------------------------------------------------------------
   posCaracter=0;//reinicio de la variable de posicion del caracter
