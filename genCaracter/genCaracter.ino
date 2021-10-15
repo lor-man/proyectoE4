@@ -11,10 +11,10 @@ F5-- X  X  X  X
 //------------------------------------------------------------------------------------------------------------
 //Caracteres
 
-uint8_t cA[4]  = { 0x3F  , 0x09 , 0x09 , 0x3F } ;
-uint8_t cB[4]  = { 0x3F  , 0x3F , 0x25 , 0x3F } ;
+uint8_t cA[4]  = { 0x3F  , 0x09 , 0x09 , 0x3F  } ;
+uint8_t cB[4]  = { 0x3F  , 0x2D  , 0x2D  , 0x12  } ;
 uint8_t cC[4]  = { 0x3F  , 0x21 , 0x21 , 0x21 } ;
-uint8_t cD[4]  = { 0x3F  , 0x21 , 0x12 , 0x0C } ;
+uint8_t cD[4]  = { 0x3F  , 0x21  , 0x21  , 0x1E  } ;
 uint8_t cE[4]  = { 0x3F  , 0x29 , 0x29 , 0x29 } ;
 uint8_t cF[4]  = { 0x3F  , 0x05 , 0x05 , 0x05 } ;
 uint8_t cG[4] =  { 0x3F  , 0x21  , 0x25  , 0x3D  } ;
@@ -24,12 +24,17 @@ uint8_t cJ[4]  = { 0x00  , 0x21 , 0x3F , 0x01 } ;
 uint8_t cK[4]  = { 0x3F  , 0x0C , 0x12 , 0x21 } ;
 uint8_t cL[4]  = { 0x3F  , 0x20 , 0x20 , 0x20 } ;
 uint8_t cM[4]  = { 0x3F  , 0x06 , 0x06 , 0x3F } ;
-uint8_t cN[4]  = { 0x3F  , 0x06 , 0x18 , 0x3F } ;
-uint8_t cO[4]  = { 0x1E  , 0x21 , 0x21 , 0x1E } ;
-uint8_t cP[4]  = { 0x3E  , 0x9 , 0x9 , 0x6 } ;
-uint8_t cQ[4]  = { 0x1E  , 0x21  , 0x11  , 0x2E  } ;
-uint8_t cR[4]  = { 0x3F  , 0x9 , 0x19  , 0x26  } ;
-uint8_t cS[4]  = { 0x24  , 0x2A , 0x29 , 0x11 } ;
+uint8_t cN[4]  = { 0x3E  , 0x08 , 0x10  , 0x3E  } ;
+uint8_t cO[4]  = { 0x3F  , 0x21  , 0x21  , 0x3F  } ;
+uint8_t cP[4]  = { 0x3F  , 0x05 , 0x05 , 0x07 } ;
+
+uint8_t cQ[4]  = { 0x7 , 0x5 , 0x5 , 0x3F  } ;
+
+
+
+uint8_t cR[4]  = { 0x3F  , 0x09 , 0x19  , 0x26  } ;
+uint8_t cS[4]  ={ 0x2F  , 0x29  , 0x29  , 0x39  } ;
+
 uint8_t cT[4]  = { 0x01  , 0x3F , 0x3F , 0x01 } ;
 uint8_t cU[4]  = { 0x1F  , 0x20 , 0x20 , 0x1F } ;
 uint8_t cV[4]  = { 0x0F  , 0x30 , 0x30 , 0x0F } ;
@@ -102,6 +107,7 @@ short unsigned int posCaracter=0;
 uint8_t * dispCaracter;
 volatile uint8_t carX[4];
 int pinVal=0;
+int timeD=1;
 
 void loop() {
   
@@ -149,51 +155,18 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
    
  tiempo2=millis();
  
- while(tiempo1<(tiempo2+1000)){
+ while(tiempo1<(tiempo2+2300)){
   //=========================================Multiplexacion de matriz led=============================================================================
  //-------------Multiplexado   por filas ---------------------------------------------------------------------------------
  tiempo1=millis();
- /* 
-  
-  for(int col=0; col<4; col++){
-  
-    digitalWrite(outCol[col],LOW);
-    
-      for(int row=0;row<6;row++){
-          pinVal=bitRead(carX[col],row);
-          digitalWrite(outRow[row],pinVal);
-          
-          //delay(1);
-          
-          //digitalWrite(outRow[row],LOW);
-      }
-      delay(1);
-      digitalWrite(outCol[col],HIGH);
-  }
-//----------------------------------------------------------------------------------------------------------------
-*/
-  
-//----------Multiplexacion  por columnas-------------------------------------------------------------------------------------
-/*
-  for(int fila=0; fila<6;fila++){
-    digitalWrite(outRow[fila],HIGH);
-    for (int col=0; col<4;col++){
-        pinVal=bitRead(carX[col],fila);
-        digitalWrite(outCol[col],!pinVal);
-      }
-      delay(1);
-      digitalWrite(outRow[fila],LOW);
-      delay(1);
-      }
-
-*/
-  //==========================================================================================================================
-//#############################Multiplexacion de focos###############################################################
+//######################################################################
 
 
- //-------------Multiplexado   por filas METODO 1---------------------------------------------------------------------------------
- /* 
-  
+//######################################################################
+
+
+ 
+ /*
   for(int col=0; col<4; col++){
   
     digitalWrite(outCol[col],HIGH);
@@ -202,33 +175,81 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
           pinVal=bitRead(carX[col],row);
           digitalWrite(outRow[row],pinVal);
           
-          //delay(1);
+          delay(5);
           
-          //digitalWrite(outRow[row],LOW);
+          digitalWrite(outRow[row],LOW);
       }
-      delay(1);
+      
       digitalWrite(outCol[col],LOW);
+      delayMicroseconds(800);
   }
+  */
+ 
 //----------------------------------------------------------------------------------------------------------------
-*/
-  
-//----------Multiplexacion  por columnas  METODO 2-------------------------------------------------------------------------------------
 
+  
+//----------Multiplexacion  por columnas-------------------------------------------------------------------------------------
+/*
   for(int fila=0; fila<6;fila++){
     digitalWrite(outRow[fila],HIGH);
     for (int col=0; col<4;col++){
         pinVal=bitRead(carX[col],fila);
         digitalWrite(outCol[col],pinVal);
+        delay(8);
+        //digitalWrite(outCol[col],LOW);
       }
-      delay(1);
+      
       digitalWrite(outRow[fila],LOW);
-      delay(1);
+      //delayMicroseconds(10);
       }
+
+*/
+  //==========================================================================================================================
+//#############################Multiplexacion de focos###############################################################
+
+
+ //-------------Multiplexado   por filas METODO 1---------------------------------------------------------------------------------
+ 
+ /*
+  for(int col=0; col<4; col++){
+      for(int row=0;row<6;row++){
+          
+          digitalWrite(outCol[col],HIGH);
+          pinVal=bitRead(carX[col],row);
+          digitalWrite(outRow[row],pinVal);
+          
+          delayMicroseconds(5500);
+          digitalWrite(outCol[col],LOW);
+          digitalWrite(outRow[row],LOW);
+          delayMicroseconds(450);
+      }
+  }
+     */
+
+//----------------------------------------------------------------------------------------------------------------
+
+  
+//----------Multiplexacion  por columnas  METODO 2-------------------------------------------------------------------------------------
+
+  for(int fila=0; fila<6;fila++){
+    
+    for (int col=0; col<4;col++){
+        digitalWrite(outRow[fila],HIGH);
+        pinVal=bitRead(carX[col],fila);
+        digitalWrite(outCol[col],pinVal);
+        delayMicroseconds(5500);
+        digitalWrite(outRow[fila],LOW);
+        digitalWrite(outCol[col],LOW);
+        delayMicroseconds(450);
+      }
+    }
+      
 
 //####################################################################################################################
 
 
- }  
+ } 
+ delay(300); 
 }
  //---------Fin de bloque de logica--------------------------------------------------------------------------
   posCaracter=0;//reinicio de la variable de posicion del caracter
