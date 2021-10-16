@@ -20,11 +20,11 @@ uint8_t cF[4]  = { 0x3F  , 0x05 , 0x05 , 0x05 } ;
 uint8_t cG[4] =  { 0x3F  , 0x21  , 0x25  , 0x3D  } ;
 uint8_t cH[4]  = { 0x3F  , 0x0C , 0x0C , 0x3F } ;
 uint8_t cI[4]  = { 0x21  , 0x3F , 0x3F , 0x21 } ;
-uint8_t cJ[4]  = { 0x00  , 0x21 , 0x3F , 0x01 } ;
+uint8_t cJ[4]  = { 0x20  , 0x20  , 0x21  , 0x3F  } ;
 uint8_t cK[4]  = { 0x3F  , 0x0C , 0x12 , 0x21 } ;
 uint8_t cL[4]  = { 0x3F  , 0x20 , 0x20 , 0x20 } ;
 uint8_t cM[4]  = { 0x3F  , 0x06 , 0x06 , 0x3F } ;
-uint8_t cN[4]  = { 0x3E  , 0x08 , 0x10  , 0x3E  } ;
+uint8_t cN[4]  = { 0x3F  , 0x06  , 0x08  , 0x3F  } ;
 uint8_t cO[4]  = { 0x3F  , 0x21  , 0x21  , 0x3F  } ;
 uint8_t cP[4]  = { 0x3F  , 0x05 , 0x05 , 0x07 } ;
 
@@ -37,27 +37,60 @@ uint8_t cS[4]  ={ 0x2F  , 0x29  , 0x29  , 0x39  } ;
 
 uint8_t cT[4]  = { 0x01  , 0x3F , 0x3F , 0x01 } ;
 uint8_t cU[4]  = { 0x1F  , 0x20 , 0x20 , 0x1F } ;
-uint8_t cV[4]  = { 0x0F  , 0x30 , 0x30 , 0x0F } ;
+uint8_t cV[4]  = { 0x00  , 0x3F  , 0x20  , 0x3F  } ;
 uint8_t cW[4]  = { 0x3F  , 0x10  , 0x10  , 0x3F  } ;
 uint8_t cX[4]  = { 0x33  , 0x0C , 0x0C , 0x33 } ;
 uint8_t cY[4]  = { 0x07  , 0x38 , 0x38 , 0x07 } ;
 uint8_t cZ[4]  = { 0x31  , 0x29 , 0x25 , 0x23 } ;
+//Minusculas
+uint8_t ca[4] =  { 0x00  , 0x1C  , 0x14  , 0x3C  } ;
+uint8_t   cb  [4] =  { 0x3F  , 0x28  , 0x28  , 0x38  } ;
+uint8_t   cc  [4] = { 0x00  , 0x3C  , 0x24  , 0x24  } ;
+uint8_t   cd  [4] = { 0x00  , 0x3C  , 0x24  , 0x3F  } ;
+uint8_t   ce  [4] =  { 0x00  , 0x3E  , 0x2A  , 0x2A  } ;
+uint8_t   cf  [4] = { 0x00  , 0x3E  , 0x0A  , 0x0A  } ;
+uint8_t   cg  [4] =  { 0x2F  , 0x29  , 0x29  , 0x3F  } ;
+uint8_t   ch  [4] =  { 0x00  , 0x3F  , 0x04  , 0x3C  } ;
+uint8_t   ci  [4] = {  0x00  , 0x00  , 0x00  , 0x3A  } ;
+uint8_t   cj  [4] =  { 0x00  , 0x20  , 0x20  , 0x3D  } ;
+uint8_t   ck  [4]= { 0x3E  , 0x08  , 0x14  , 0x22  } ;
+uint8_t   cl  [4] = { 0x00  , 0x00  , 0x00  , 0x3F  } ;
+uint8_t   cm  [4] =  { 0x3C  , 0x08  , 0x08  , 0x3C  } ;
+uint8_t   cn  [4] = { 0x00  , 0x3C  , 0x08  , 0x38  } ;
+uint8_t   co  [4] = {  0x3C  , 0x24  , 0x24  , 0x3C  } ;
+uint8_t   cp  [4] =  { 0x00  , 0x3E  , 0x0A  , 0x0E  } ;
+uint8_t   cq  [4] =  { 0x00  , 0x0E  , 0x0A  , 0x3E  } ;
+uint8_t   cr  [4] = { 0x00  , 0x3C  , 0x08  , 0x04  } ;
+uint8_t   cs  [4] = { 0x00  , 0x2E  , 0x2A  , 0x3A  } ;
+uint8_t   ct  [4] =  { 0x00  , 0x02  , 0x3F  , 0x02  } ;
+uint8_t   cu  [4] = { 0x3C , 0x20   , 0x20  , 0x3C  } ;
+uint8_t   cv  [4] =  { 0x0C  , 0x20  , 0x20  , 0x0C  } ;
+uint8_t   cw  [4] = { 0x1C  , 0x30  , 0x30  , 0x1C  } ;
+uint8_t   cx  [4] =  { 0x24  , 0x18  , 0x18  , 0x24  } ;
+uint8_t   cy  [4] = { 0x00  , 0x0C  , 0x30  , 0x0C  } ;
+//uint8_t   cy  [4] =  { 0x2A  , 0x15  , 0x2A  , 0x15  } ;
+uint8_t   cz  [4] = { 0x00  , 0x32  , 0x2A  , 0x26  } ;
+//uint8_t   cz  [4] =  { 0x15  , 0x2A  , 0x15  , 0x2A  } ;
+
+
+
+
+
 //digitos
 uint8_t c0[4] =  { 0x0 , 0x3F  , 0x21  , 0x3F  } ;
 uint8_t c1[4]  = { 0x00 , 0x02 , 0x01 , 0x3F  } ;
 uint8_t c2[4]  = { 0x0 , 0x32  , 0x29  , 0x26  } ;
 uint8_t c3[4]  = { 0x0 , 0x25  , 0x25  , 0x3F  } ;
-uint8_t c4[4]  = { 0x00 , 0x07 , 0x04 , 0x3F  } ;
+uint8_t c4[4]  = { 0x07  , 0x04  , 0x04  , 0x3F  } ;
 uint8_t c5[4]  = { 0x00 , 0x27 , 0x25 , 0x3D  } ;
 uint8_t c6[4]  = { 0x00 , 0x3F , 0x25 , 0x3D  } ;
 uint8_t c7[4]  = { 0x00 , 0x01 , 0x01 , 0x3F  } ;
 uint8_t c8[4]  = { 0x00 , 0x3F , 0x25 , 0x3F  } ;
 uint8_t c9[4]  = { 0x00 , 0x07 , 0x05 , 0x3F  } ;
 //Caracteres especiales por definir
-uint8_t cInterrogacion[4]  = { 0x02 , 0x01 , 0x2D  , 0x2 } ;//Signo de interrogacion ?
-uint8_t cAdmiracion[4] = { 0x00 , 0x00 , 0x2F  , 0x00 } ;//signo de !
 uint8_t cEspacio[4]  = { 0x20  , 0x20  , 0x20  , 0x20  } ;// El espacio sera un guion bajo _, se utilizara tambien cuando no se encuentre el caracter enviado.
 
+uint8_t   cpunto  [4] = { 0x3F  , 0x3F  , 0x3F  , 0x3F  } ;
 
 
 
@@ -120,14 +153,16 @@ void loop() {
          
       if(cadenaSer.length()!=0){ //si lo que se envia no es una cadena vacia entonces se extrae dato pordatopara eliminar los ultimos dos caracteres que se envia desde la PC
        
-        for( uint8_t cnt_len=0; cnt_len<=cadenaSer.length();cnt_len++){
+        for( uint8_t cnt_len=0; cnt_len<=cadenaSer.length()-1;cnt_len++){
           cadEnv=cadEnv+cadenaSer[cnt_len];
         }
       }
-      
+
+    Serial.println(cadEnv+String(cadEnv.length()));
+    
     Serial.flush();//Se limpia el buffer de recepcion del modulo uart
     cadenaSer="";  //Se limpia la variable tipo string de recepcion
-    cadEnv.toUpperCase();// Se convierte a mayusculas el texto recibido
+    //cadEnv.toUpperCase();// Se convierte a mayusculas el texto recibido
   }
 
  
@@ -143,7 +178,9 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
      posCaracter++;
      if(posCaracter-1<cadEnv.length()){
       
-       caracterX=cadEnv.charAt(posCaracter-1);           
+       caracterX=cadEnv.charAt(posCaracter-1);  
+       Serial.print("letra : ");
+       Serial.println(caracterX);         
        matrizCaracter(caracterX); 
        
        for(int cont=0; cont<4;cont++){
@@ -155,7 +192,7 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
    
  tiempo2=millis();
  
- while(tiempo1<(tiempo2+2300)){
+ while(tiempo1<(tiempo2+700)){
   //=========================================Multiplexacion de matriz led=============================================================================
  //-------------Multiplexado   por filas ---------------------------------------------------------------------------------
  tiempo1=millis();
@@ -210,40 +247,39 @@ while(posCaracter<cadEnv.length()&&cadEnv.length()!=0){
 
  //-------------Multiplexado   por filas METODO 1---------------------------------------------------------------------------------
  
- /*
+ // bien con mayusculas
   for(int col=0; col<4; col++){
       for(int row=0;row<6;row++){
           
           digitalWrite(outCol[col],HIGH);
           pinVal=bitRead(carX[col],row);
           digitalWrite(outRow[row],pinVal);
-          
-          delayMicroseconds(5500);
+          delayMicroseconds(5000);
+          digitalWrite(outRow[row],LOW);          
           digitalWrite(outCol[col],LOW);
-          digitalWrite(outRow[row],LOW);
-          delayMicroseconds(450);
-      }
+          delayMicroseconds(50);
+        }
+        delay(1);
   }
-     */
-
+ 
 //----------------------------------------------------------------------------------------------------------------
 
   
 //----------Multiplexacion  por columnas  METODO 2-------------------------------------------------------------------------------------
-
+/*
   for(int fila=0; fila<6;fila++){
     
     for (int col=0; col<4;col++){
         digitalWrite(outRow[fila],HIGH);
         pinVal=bitRead(carX[col],fila);
         digitalWrite(outCol[col],pinVal);
-        delayMicroseconds(5500);
+        delayMicroseconds(30000);
         digitalWrite(outRow[fila],LOW);
         digitalWrite(outCol[col],LOW);
-        delayMicroseconds(450);
+        delayMicroseconds(30000);
       }
     }
-      
+  */    
 
 //####################################################################################################################
 
@@ -338,6 +374,89 @@ void matrizCaracter(char letra){
       case 'Z':
         dispCaracter=cZ;
         break;
+      //Minusculas
+      case 'a':
+        dispCaracter=ca;
+        break;
+      case 'b':
+        dispCaracter=cb;
+        break;
+      case 'c':
+        dispCaracter=cc;
+        break;
+      case 'd':
+        dispCaracter=cd;
+        break;
+      case 'e':
+        dispCaracter=ce;
+        break;
+      case 'f':
+        dispCaracter=cf;
+        break;
+      case 'g':
+        dispCaracter=cg;
+        break;
+      case 'h':
+        dispCaracter=ch;
+        break;
+      case 'i':
+        dispCaracter=ci;
+        break;
+      case 'j':
+        dispCaracter=cj;
+        break;
+      case 'k':
+        dispCaracter=ck;
+        break;
+      case 'l':
+        dispCaracter=cl;
+        break;
+      case 'm':
+        dispCaracter=cm;
+        break;
+      case 'n':
+        dispCaracter=cn;
+        break;
+      case 'o':
+        dispCaracter=co;
+        break;
+      case 'p':
+        dispCaracter=cp;
+        break;
+      case 'q':
+        dispCaracter=cq;
+        break;
+      case 'r':
+        dispCaracter=cr;
+        break;
+      case 's':
+        dispCaracter=cs;
+        break;
+      case 't':
+        dispCaracter=ct;
+        break;
+      case 'u':
+        dispCaracter=cu;
+        break;
+      case 'v':
+        dispCaracter=cv;
+        break;
+      case 'w':
+        dispCaracter=cw;
+        break;
+      case 'x':
+        dispCaracter=cx;
+        break;
+      case 'y':
+        dispCaracter=cy;
+        break;
+      case 'z':
+        dispCaracter=cz;
+        break;
+        
+
+
+      
       //Numeros
       case '0':
         dispCaracter=c0;
@@ -370,14 +489,12 @@ void matrizCaracter(char letra){
         dispCaracter=c9;
         break;
       //Tres signos
-      case '?':
-        dispCaracter=cInterrogacion;
-        break;
-      case '!':
-       dispCaracter=cAdmiracion;
-        break;
+      
       case ' ':
         dispCaracter=cEspacio;
+        break;
+      case '.':
+        dispCaracter=cpunto;
         break;
       default:
         dispCaracter=cEspacio;

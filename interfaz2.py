@@ -22,7 +22,8 @@ class SerialMonitor(Frame):
         self.frame1.columnconfigure(2,weight=1)
         self.frame1.grid(row=1,column=0,sticky="nsew")
         self.texto=StringVar()
-        self.comport=StringVar()      
+        self.comport=StringVar()  
+        #self.master.bind('<Return>',self.enviar())    
         self.initEntry()
         self.initLabel()
         self.initButton()
@@ -40,6 +41,7 @@ class SerialMonitor(Frame):
     def initButton(self):
         self.envBut=Button(self.frame0,text="Enviar",command=self.enviar)
         self.envBut.grid(row=0,column=2,padx=5,pady=5)
+        
 
         self.env2But=Button(self.frame1,text="Texto 1",command=self.enviar1)
         self.env2But.grid(row=0,column=0,padx=5,pady=5)
@@ -77,13 +79,18 @@ class SerialMonitor(Frame):
         try:
             with serial.Serial(self.comport.get(),9600,timeout=1)as port:
                 #time.sleep(0.01)
+                print(len(texto))
                 port.write(bytes(texto,'utf-8'))
-            """with serial.Serial(self.comport.get(),9600,timeout=1)as port:
+            """
+            with serial.Serial(self.comport.get(),9600,timeout=1)as port:
                 #time.sleep(0.01)
                 recibido=port.readline()
                 print(len(str(recibido,'utf-8')))
             print(str(recibido,'utf-8')+" Tivac") 
-           """
+           
+            
+            """
+            
         except Exception as exc:
             print(exc) 
   
